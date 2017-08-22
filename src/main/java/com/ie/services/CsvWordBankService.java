@@ -33,41 +33,55 @@ public class CsvWordBankService implements WordBankService {
 
     private List<String> wordBankList;
     private String srcFilePath;
+    private final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
 
     private void init() throws URISyntaxException {
         wordBankList = new ArrayList<>();
-        final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
+        Stream<String> lines = null;
         try {
             Path path = Paths.get(ClassLoader.getSystemResource("words.txt").toURI());
-            Stream<String> lines = Files.lines(path);
-            lines.forEach(l -> {
-                String[] split = l.split(",");
-                Integer occurrences = Integer.valueOf(split[OCCURRENCES_COLUMN].trim());
-                String word = split[WORD_COLUMN];
-                int length = word.length();
-                if (length > 4 && length < 7) {
-                    if (
-                            occurrences < 1_000 ||
-                                    word.contains("'") ||
-                                    word.contains("-") ||
-                                    word.contains("\"") ||
-                                    word.startsWith("ש") ||
-                                    word.startsWith("ב") ||
-                                    word.startsWith("כ") ||
-                                    word.startsWith("ה") ||
-                                    word.startsWith("ל") ||
-                                    word.endsWith("ים")
-                            ) {
-                        // pass
-                    } else {
-                        wordBankList.add(word);
-                    }
-                }
-            });
-            lines.close();
+            lines = Files.lines(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (lines == null) {
+            try {
+                String content = IOUtils.toString(new URL("https://pastebin.com/raw/Vd8nXtGy"), "UTF-8");
+                lines = Stream.of(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        parseLines(lines);
+    }
+
+    private void parseLines(Stream<String> lines) {
+        lines.forEach(l -> {
+            String[] split = l.split(",");
+            Integer occurrences = Integer.valueOf(split[OCCURRENCES_COLUMN].trim());
+            String word = split[WORD_COLUMN];
+            int length = word.length();
+            if (length > 4 && length < 7) {
+                if (
+                        occurrences < 1_000 ||
+                                word.contains("'") ||
+                                word.contains("-") ||
+                                word.contains("\"") ||
+                                word.startsWith("ש") ||
+                                word.startsWith("ב") ||
+                                word.startsWith("כ") ||
+                                word.startsWith("ה") ||
+                                word.startsWith("ל") ||
+                                word.endsWith("ים")
+                        ) {
+                    // pass
+                } else {
+                    wordBankList.add(word);
+                }
+            }
+        });
+        lines.close();
     }
 
     @Override
