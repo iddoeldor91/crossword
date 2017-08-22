@@ -1,5 +1,6 @@
 package com.ie.services;
 
+import com.ie.CrosswordApplication;
 import com.ie.models.Word;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -37,9 +38,7 @@ public class CsvWordBankService implements WordBankService {
         wordBankList = new ArrayList<>();
         final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
         try {
-            URI uri = ResourceUtils.getURL(getCsvSourceFilePath()).toURI();
-            LOG.info("IDDO TAG " + getCsvSourceFilePath() + " \t" + uri.toString());
-            Path path = Paths.get(uri);
+            Path path = Paths.get(CrosswordApplication.class.getResource("/words.txt").toURI());
             Stream<String> lines = Files.lines(path);
             lines.forEach(l -> {
                 String[] split = l.split(",");
