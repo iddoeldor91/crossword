@@ -9,8 +9,7 @@ import org.springframework.context.annotation.ImportResource;
  * https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku#preparing-a-spring-boot-app-for-heroku
  * /home/iddo/.ssh/id_rsa.pub
  * https://cryptic-hollows-99859.herokuapp.com/ | https://git.heroku.com/cryptic-hollows-99859.git
- * git add . && git commit -m "init 5" && git push heroku master
- * heroku logs --tail
+ * git add . && git commit -m "init 5" && git push heroku master && heroku logs --tail
  */
 @SpringBootApplication
 @ImportResource("classpath:config.xml")
