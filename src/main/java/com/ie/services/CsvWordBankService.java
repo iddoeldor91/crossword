@@ -35,25 +35,14 @@ public class CsvWordBankService implements WordBankService {
     private String srcFilePath;
     private final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
 
-    private void init() throws URISyntaxException {
+    private void init() {
         wordBankList = new ArrayList<>();
-        Stream<String> lines = null;
         try {
-            Path path = Paths.get(ClassLoader.getSystemResource("words.txt").toURI());
-            lines = Files.lines(path);
+            parseLines(Stream.of(IOUtils.toString(new URL("https://pastebin.com/raw/Vd8nXtGy"), "UTF-8")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (lines == null) {
-            try {
-                String content = IOUtils.toString(new URL("https://pastebin.com/raw/Vd8nXtGy"), "UTF-8");
-                lines = Stream.of(content);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }
-        parseLines(lines);
     }
 
     private void parseLines(Stream<String> lines) {
