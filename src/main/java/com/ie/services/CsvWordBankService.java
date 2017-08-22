@@ -10,9 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.json.JsonParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -33,7 +36,11 @@ public class CsvWordBankService implements WordBankService {
         wordBankList = new ArrayList<>();
         final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
         try {
-            Stream<String> lines = Files.lines(Paths.get(ClassLoader.getSystemResource(getCsvSourceFilePath()).toURI()));
+            String csvSourceFilePath = getCsvSourceFilePath();
+            ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+            URI uri = systemClassLoader.getResource(csvSourceFilePath).toURI();
+            Path path = Paths.get(uri);
+            Stream<String> lines = Files.lines(path);
             lines.forEach(l -> {
                 String[] split = l.split(",");
                 Integer occurrences = Integer.valueOf(split[OCCURRENCES_COLUMN].trim());
