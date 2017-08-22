@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.json.JsonParserFactory;
+import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,9 +37,8 @@ public class CsvWordBankService implements WordBankService {
         wordBankList = new ArrayList<>();
         final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
         try {
-            String csvSourceFilePath = getCsvSourceFilePath();
-            ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-            URI uri = systemClassLoader.getResource(csvSourceFilePath).toURI();
+            URI uri = ResourceUtils.getURL(getCsvSourceFilePath()).toURI();
+            LOG.info("IDDO TAG " + getCsvSourceFilePath() + " \t" + uri.toString());
             Path path = Paths.get(uri);
             Stream<String> lines = Files.lines(path);
             lines.forEach(l -> {
