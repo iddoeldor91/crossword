@@ -38,7 +38,7 @@ public class CsvWordBankService implements WordBankService {
         wordBankList = new ArrayList<>();
         final int WORD_COLUMN = 0, OCCURRENCES_COLUMN = 1;
         try {
-            Path path = Paths.get(CrosswordApplication.class.getResource("/words.txt").toURI());
+            Path path = Paths.get(ClassLoader.getSystemResource("words.txt").toURI());
             Stream<String> lines = Files.lines(path);
             lines.forEach(l -> {
                 String[] split = l.split(",");
