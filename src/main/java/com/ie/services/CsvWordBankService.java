@@ -22,7 +22,10 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 @CacheConfig(cacheNames = "words")
@@ -106,9 +109,8 @@ public class CsvWordBankService implements WordBankService {
      * using LRU Cache
      * configuration @ ehcache.xml
      */
-    @Override
     @Cacheable
-    public String getClue(String query) {
+    private String getClue(String query) {
         LOG.info("getClue " + query);
         // TODO extract to config
         final String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
@@ -131,6 +133,21 @@ public class CsvWordBankService implements WordBankService {
             // TODO handle exception.. either return text with the clue and "sorry, here is the solution" or try again
         }
         return imageBase64;
+    }
+
+    @Override
+    public void getClues(List<Word> wordList) {
+        ExecutorService es = Executors.newFixedThreadPool(wordList.size());
+        wordList.forEach(word -> {
+            LOG.info("going for getClue " + word.getWord() + "\t" + word.toString());
+            es.execute(() -> word.setClue(this.getClue(word.getWord())));
+        });
+        try {
+            es.shutdown();
+            es.awaitTermination(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @CacheEvict(allEntries = true)

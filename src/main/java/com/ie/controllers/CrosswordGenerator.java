@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +27,7 @@ public class CrosswordGenerator {
     private WordBankService wordBankService;
 
     @RequestMapping(method= RequestMethod.GET)
-    public @ResponseBody Crossword generateCrossword (@RequestParam(value="level", defaultValue= "1") int level) {
+    public @ResponseBody Crossword generateCrossword(@RequestParam(value="level", defaultValue= "1") int level) {
         Crossword crossword = new Crossword(wordBankService.getRandomWords(level));
         crossword.computeCrossword();
 
@@ -40,18 +37,7 @@ public class CrosswordGenerator {
         Stream.of(crossword.getGrid()).forEach(row -> System.out.println(Arrays.toString(row)));
         LOG.debug("legend");
 
-        // getting clues
-        ExecutorService es = Executors.newFixedThreadPool(crossword.getCurrentWordList().size());
-        crossword.getCurrentWordList().forEach(word -> {
-            LOG.info("going for getClue " + word.getWord() + "\t" + word.toString());
-            es.execute(() -> word.setClue(wordBankService.getClue(word.getWord())));
-        });
-        try {
-            es.shutdown();
-            es.awaitTermination(30, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        wordBankService.getClues(crossword.getCurrentWordList());
 
         LOG.debug("used " + crossword.getCurrentWordList().size() + " out of " + crossword.getAvailableWords().size() + " words");
 

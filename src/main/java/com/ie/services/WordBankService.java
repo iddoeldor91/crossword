@@ -7,5 +7,5 @@ import java.util.List;
 public interface WordBankService {
     List<Word> getRandomWords(int level);
 
-    String getClue(String query);
+    void getClues(List<Word> currentWordList);
 }
