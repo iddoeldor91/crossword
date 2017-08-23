@@ -26,8 +26,8 @@ public class Crossword {
     @JsonIgnore @Getter @Setter private int cols = 10; // number of columns todo extract
     @JsonIgnore @Getter @Setter private int rows = 10; // number of rows todo extract
     @JsonIgnore @Getter @Setter private int maxLoops = 1000; // todo extract
-    private static final long TIME_PERMITTED = 100; // to compute crossword, in milliseconds todo extract
-    private static final int SPINS = 2; // todo not working via inject
+    private long timePermitted = 100; // to compute crossword, in milliseconds todo extract
+    private int spins = 2; // todo not working via inject
 
     private static final char EMPTY_CHAR = ' ';
 
@@ -69,10 +69,10 @@ public class Crossword {
         Crossword copy = new Crossword();
         copy.availableWords = this.availableWords; // for some reason it does not recognize availableWords setter
         copy.setGrid(this.grid);
-//        System.out.println("TIME_PERMITTED = " + this.TIME_PERMITTED);
-        while (System.currentTimeMillis() - startFull < TIME_PERMITTED || count == 0) {
+//        System.out.println("timePermitted = " + this.timePermitted);
+        while (System.currentTimeMillis() - startFull < timePermitted || count == 0) {
             int x = 0;
-            while (x < SPINS) {
+            while (x < spins) {
                 copy.availableWords.stream()
                         .filter(word -> !copy.currentWordList.stream()
                                 .map(Word::getWord)
@@ -289,6 +289,16 @@ public class Crossword {
 
     private void setCell(int col, int row, char value) {
         this.grid[row - 1][col - 1] = value;
+    }
+
+    // getters & setters
+
+    public void setTimePermitted(long timePermitted) {
+        this.timePermitted = timePermitted;
+    }
+
+    public void setSpins(int spins) {
+        this.spins = spins;
     }
 
 }

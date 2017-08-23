@@ -43,7 +43,7 @@ public class CrosswordGenerator {
         // getting clues
         ExecutorService es = Executors.newFixedThreadPool(crossword.getCurrentWordList().size());
         crossword.getCurrentWordList().forEach(word -> {
-            LOG.debug(word.toString());
+            LOG.info("going for getClue " + word.getWord() + "\t" + word.toString());
             es.execute(() -> word.setClue(wordBankService.getClue(word.getWord())));
         });
         try {
