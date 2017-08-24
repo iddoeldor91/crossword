@@ -166,6 +166,7 @@ public class CsvWordBankService implements WordBankService {
             es.shutdown();
             es.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
+            LOG.error(e.getMessage());
             e.printStackTrace();
         }
     }

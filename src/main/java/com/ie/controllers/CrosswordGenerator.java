@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/get")
@@ -31,10 +29,11 @@ public class CrosswordGenerator {
         Crossword crossword = new Crossword(wordBankService.getRandomWords(level));
         crossword.computeCrossword();
 
-        LOG.info("word bank " + crossword.getAvailableWords().stream().map(Word::getWord).collect(Collectors.toList()));
+        LOG.debug("word bank " + crossword.getAvailableWords().stream().map(Word::getWord).collect(Collectors.toList()));
 
         LOG.debug("Crossword grid");
-        Stream.of(crossword.getGrid()).forEach(row -> System.out.println(Arrays.toString(row)));
+//        Stream.of(crossword.getGrid()).forEach(row -> System.out.println(Arrays.toString(row)));
+
         LOG.debug("legend");
 
         wordBankService.getClues(crossword.getCurrentWordList());
