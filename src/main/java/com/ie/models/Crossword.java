@@ -26,8 +26,8 @@ public class Crossword {
     @JsonIgnore @Getter @Setter private int cols = 10; // number of columns todo extract
     @JsonIgnore @Getter @Setter private int rows = 10; // number of rows todo extract
     @JsonIgnore @Getter @Setter private int maxLoops = 1000; // todo extract
-    private long timePermitted = 100; // to compute crossword, in milliseconds todo extract
-    private int spins = 2; // todo not working via inject
+    private static final long timePermitted = 100; // to compute crossword, in milliseconds todo extract
+    private static final int spins = 2; // todo not working via inject
 
     private static final char EMPTY_CHAR = '-';
 
@@ -289,16 +289,6 @@ public class Crossword {
 
     private void setCell(int col, int row, char value) {
         this.grid[row - 1][col - 1] = value;
-    }
-
-    // getters & setters
-
-    public void setTimePermitted(long timePermitted) {
-        this.timePermitted = timePermitted;
-    }
-
-    public void setSpins(int spins) {
-        this.spins = spins;
     }
 
 }
