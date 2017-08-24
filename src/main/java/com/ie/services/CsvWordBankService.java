@@ -95,7 +95,7 @@ public class CsvWordBankService implements WordBankService {
             }
         });
         stream.close();
-        wordBankList = wordBankList.subList(0, 50);
+        wordBankList = wordBankList.subList(0, 30);
         List<Word> wordList = wordBankList.stream().map(w -> new Word(w, null)).collect(Collectors.toList());
         try {
             initClues(wordList);
