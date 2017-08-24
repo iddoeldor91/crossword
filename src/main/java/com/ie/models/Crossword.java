@@ -29,7 +29,7 @@ public class Crossword {
     private long timePermitted = 100; // to compute crossword, in milliseconds todo extract
     private int spins = 2; // todo not working via inject
 
-    private static final char EMPTY_CHAR = ' ';
+    private static final char EMPTY_CHAR = '-';
 
     private Crossword() {}
 

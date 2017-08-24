@@ -3,9 +3,8 @@ package com.ie.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@Getter @Setter @ToString
+@Getter @Setter
 public class Word {
 
     @JsonProperty("r")
@@ -22,5 +21,16 @@ public class Word {
     public Word(String word, String clue) {
         this.word = word;
         this.clue = clue;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "row=" + row +
+                ", col=" + col +
+                ", vertical=" + vertical +
+                ", word='" + word + '\'' +
+//                ", clue='" + clue + '\'' +
+                '}';
     }
 }
