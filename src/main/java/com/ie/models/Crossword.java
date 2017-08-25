@@ -69,7 +69,6 @@ public class Crossword {
         Crossword copy = new Crossword();
         copy.availableWords = this.availableWords; // for some reason it does not recognize availableWords setter
         copy.setGrid(this.grid);
-//        System.out.println("timePermitted = " + this.timePermitted);
         while (System.currentTimeMillis() - startFull < timePermitted || count == 0) {
             int x = 0;
             while (x < spins) {
