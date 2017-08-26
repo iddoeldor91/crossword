@@ -24,8 +24,8 @@ public class Crossword {
     @JsonIgnore @Getter @Setter private List<Word> availableWords;
 
     @JsonIgnore @Getter @Setter private int cols = 10; // number of columns todo extract
-    @JsonIgnore @Getter @Setter private int rows = 10; // number of rows todo extract
-    @JsonIgnore @Getter @Setter private int maxLoops = 1000; // todo extract
+    @JsonIgnore @Getter @Setter private int rows = 9; // number of rows todo extract
+    @JsonIgnore @Getter @Setter private int maxLoops = 1000; // todo extract set minimum words per level..
     private static final long timePermitted = 100; // to compute crossword, in milliseconds todo extract
     private static final int spins = 2; // todo not working via inject
 

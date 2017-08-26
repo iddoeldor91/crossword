@@ -14,7 +14,6 @@ import org.springframework.cache.annotation.EnableCaching;
  *
  */
 @EnableCaching
-//@ImportResource("classpath:config.xml")
 @SpringBootApplication
 public class CrosswordApplication {
 	public static void main(String[] args) {

@@ -62,6 +62,6 @@ public class ClueDao {
 
     @CacheEvict(value = CACHE_KEY, allEntries = true)
     public void evictAll() {
-        LOG.debug("evict all from cache");
+        LOG.debug("evicted all from cache");
     }
 }
