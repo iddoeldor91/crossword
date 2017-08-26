@@ -25,6 +25,7 @@ public class ClueDao {
     private static final String IMAGE_QUERY_SELECTOR = "div.rg_meta";
     private static final String URL_MAP_KEY = "ou";
     private static final int TIMEOUT_MS = 3_000;
+    private static final String CACHE_KEY = "clues";
 
     /**
      *
@@ -33,7 +34,7 @@ public class ClueDao {
      * TODO if http status != 200, should continue to second image
      * in the future we should return Clue object which might be video/text/audio/two images
      */
-    @Cacheable("clues")
+    @Cacheable(CACHE_KEY)
     public String getClue(String word) {
         String result = null;
         try {
@@ -54,8 +55,13 @@ public class ClueDao {
         return result;
     }
 
-    @CacheEvict("clues")
+    @CacheEvict(CACHE_KEY)
     public void evictFromCache(final String word) {
         LOG.debug("Evict from cache [{}]", word);
+    }
+
+    @CacheEvict(value = CACHE_KEY, allEntries = true)
+    public void evictAll() {
+        LOG.debug("evict all from cache");
     }
 }

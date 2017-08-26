@@ -65,4 +65,13 @@ public class CrosswordGenerator {
         return word + " evicted";
     }
 
+    @GetMapping("/init/clues")
+    public @ResponseBody String initClues() {
+        StopWatch sw = new StopWatch();
+        sw.start();
+        wordBankService.initClues();
+        sw.stop();
+        return "init clues finished " + sw.toString();
+    }
+
 }

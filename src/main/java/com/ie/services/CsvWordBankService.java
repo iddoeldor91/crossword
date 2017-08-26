@@ -79,7 +79,10 @@ public class CsvWordBankService implements WordBankService {
         stream.close();
     }
 
-    private void initClues() {
+    @Override
+    public void initClues() {
+        clueDao.evictAll();
+
         int before = wordBankList.size();
         List<Word> wordList = wordBankList.stream().map(w -> new Word(w, null)).collect(Collectors.toList());
 
