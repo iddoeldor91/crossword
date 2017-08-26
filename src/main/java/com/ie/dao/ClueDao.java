@@ -43,7 +43,7 @@ public class ClueDao {
     @Cacheable(CACHE_KEY)
     public String getClue(String word) {
         String result = null;
-        int counter = 0;
+        int attemptsCounter = 0;
         LOG.debug("trying to fetch clue for word [{}]", word);
         Elements elements = null;
         try {
@@ -52,18 +52,18 @@ public class ClueDao {
         } catch (IOException e) {
             LOG.error("failed fetching source for [{}]", word);
         }
-        // source code exit, && haven't fetched clue url yet && not reached attempts limit
-        while (elements != null && result == null && counter < ATTEMPT_COUNTER) {
+        // source code exists && haven't fetched clue url yet && not reached attempts limit
+        while (elements != null && result == null && attemptsCounter < ATTEMPT_COUNTER) {
             try {
-                String firstElement = elements.get(counter).childNodes().get(0).toString();
+                String firstElement = elements.get(attemptsCounter).childNodes().get(0).toString();
                 String imgUrl = JsonParserFactory.getJsonParser().parseMap(firstElement).get(URL_MAP_KEY).toString();
                 URL url = new URL(imgUrl);
                 byte[] imageBytes = IOUtils.toByteArray(url);
                 result = Base64.getEncoder().encodeToString(imageBytes);
                 LOG.info("fetched clue [{}] url [{}] length [{}]", word, imgUrl, result.length());
             } catch (Exception e) {
-                LOG.error("Error fetching clue [{}] [{}]", word, e.getMessage());
-                counter++;
+                LOG.error("Error fetching clue [{}] attempt [{}] error [{}]", word, attemptsCounter, e.getMessage());
+                attemptsCounter++;
             }
         }
         return result;

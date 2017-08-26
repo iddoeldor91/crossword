@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 /**
  * https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku#preparing-a-spring-boot-app-for-heroku
  * https://cryptic-hollows-99859.herokuapp.com/ | https://git.heroku.com/cryptic-hollows-99859.git
- * git add . && git commit -m "adding 3 attempts to get clue" && git push heroku master && heroku logs --tail
+ * git add . && git commit -m "refactoring" && git push heroku master && heroku logs --tail
  * http://memorynotfound.com/spring-boot-create-executable-using-maven-parent-pom/
  * http://memorynotfound.com/selenium-record-video-junit-java/
  */
