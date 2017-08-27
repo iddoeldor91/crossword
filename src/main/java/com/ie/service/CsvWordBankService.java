@@ -1,8 +1,8 @@
-package com.ie.services;
+package com.ie.service;
 
 
 import com.ie.dao.ClueDao;
-import com.ie.models.Word;
+import com.ie.model.Word;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

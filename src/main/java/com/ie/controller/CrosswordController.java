@@ -1,10 +1,10 @@
-package com.ie.controllers;
+package com.ie.controller;
 
 import com.ie.CrosswordApplication;
 import com.ie.dao.ClueDao;
-import com.ie.models.Crossword;
-import com.ie.models.Word;
-import com.ie.services.WordBankService;
+import com.ie.model.Crossword;
+import com.ie.model.Word;
+import com.ie.service.WordBankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.stream.Collectors;
 
 @Controller
-public class CrosswordGenerator {
+public class CrosswordController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CrosswordApplication.class);
 
@@ -59,13 +59,13 @@ public class CrosswordGenerator {
         return TEMPLATE_CLUE;
     }
 
-    @GetMapping("evict/clue/{word}")
+    @GetMapping("cache/evict/{word}")
     public @ResponseBody String evictClueFromCache(@PathVariable final String word) {
         clueDao.evictFromCache(word);
         return word + " evicted";
     }
 
-    @GetMapping("/init/clues")
+    @GetMapping("cache/init")
     public @ResponseBody String initClues() {
         StopWatch sw = new StopWatch();
         sw.start();

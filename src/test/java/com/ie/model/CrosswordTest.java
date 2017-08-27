@@ -1,10 +1,10 @@
-package com.ie.models;
+package com.ie.model;
 
 import org.junit.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 public class CrosswordTest {

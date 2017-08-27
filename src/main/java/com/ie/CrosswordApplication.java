@@ -10,6 +10,9 @@ import org.springframework.cache.annotation.EnableCaching;
  * git add . && git commit -m "refactoring" && git push heroku master && heroku logs --tail
  * http://memorynotfound.com/spring-boot-create-executable-using-maven-parent-pom/
  * http://memorynotfound.com/selenium-record-video-junit-java/
+ *
+ * TODO CRUD Clue
+ * 1. Create new clue: auto complete from GoogleAutoSuggestionsAPI + pick image from google grid
  */
 @EnableCaching
 @SpringBootApplication

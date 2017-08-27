@@ -1,6 +1,6 @@
-package com.ie.services;
+package com.ie.service;
 
-import com.ie.models.Word;
+import com.ie.model.Word;
 
 import java.util.List;
 
