@@ -1,24 +1,62 @@
 package com.ie.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 public class Word {
 
     @JsonProperty("r")
-    @Getter @Setter private int row;
+    private int row;
     @JsonProperty("c")
-    @Getter @Setter  private int col;
+    private int col;
     @JsonProperty("v")
-    @Getter @Setter private int vertical;
+    private int vertical;
     @JsonProperty("w")
-    @Getter @Setter private String word;
+    private String word;
     @JsonProperty("h")
-    @Getter @Setter private String clue;
+    private String clue;
 
     public Word(String word, String clue) {
         this.word = word;
+        this.clue = clue;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public int getVertical() {
+        return vertical;
+    }
+
+    public void setVertical(int vertical) {
+        this.vertical = vertical;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getClue() {
+        return clue;
+    }
+
+    public void setClue(String clue) {
         this.clue = clue;
     }
 

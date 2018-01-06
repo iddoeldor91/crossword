@@ -2,8 +2,6 @@ package com.ie.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,17 +13,17 @@ import java.util.stream.Collectors;
 public class Crossword {
 
     @JsonProperty("l") // l is shortcut for level
-    @Getter @Setter private int level = 1;
+    private int level = 1;
     @JsonProperty("t") // t is shortcut for time
-    @Getter @Setter private int time;
+    private int time;
     @JsonProperty("d") // d is shortcut for data
-    @Getter @Setter private List<Word> currentWordList = new ArrayList<>();
-    @JsonIgnore @Getter @Setter private char[][] grid;
-    @JsonIgnore @Getter @Setter private List<Word> availableWords;
+    private List<Word> currentWordList = new ArrayList<>();
+    @JsonIgnore private char[][] grid;
+    @JsonIgnore private List<Word> availableWords;
 
-    @JsonIgnore @Getter @Setter private int cols = 10; // number of columns todo extract
-    @JsonIgnore @Getter @Setter private int rows = 9; // number of rows todo extract
-    @JsonIgnore @Getter @Setter private int maxLoops = 1000; // todo extract set minimum words per level..
+    @JsonIgnore private int cols = 10; // number of columns todo extract
+    @JsonIgnore private int rows = 9; // number of rows todo extract
+    @JsonIgnore private int maxLoops = 1000; // todo extract set minimum words per level..
     private static final long timePermitted = 100; // to compute crossword, in milliseconds todo extract
     private static final int spins = 2; // todo not working via inject
 
@@ -290,4 +288,68 @@ public class Crossword {
         this.grid[row - 1][col - 1] = value;
     }
 
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public List<Word> getCurrentWordList() {
+        return currentWordList;
+    }
+
+    public void setCurrentWordList(List<Word> currentWordList) {
+        this.currentWordList = currentWordList;
+    }
+
+    public char[][] getGrid() {
+        return grid;
+    }
+
+    public void setGrid(char[][] grid) {
+        this.grid = grid;
+    }
+
+    public List<Word> getAvailableWords() {
+        return availableWords;
+    }
+
+    public void setAvailableWords(List<Word> availableWords) {
+        this.availableWords = availableWords;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getMaxLoops() {
+        return maxLoops;
+    }
+
+    public void setMaxLoops(int maxLoops) {
+        this.maxLoops = maxLoops;
+    }
 }
